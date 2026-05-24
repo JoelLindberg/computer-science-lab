@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
     - Linked lists doesn't seem to be recommended as a primary data structure to store your data in modern computing.
@@ -12,13 +13,15 @@
 
     - Based on the above findings: I will perform one basic exercise and study it.
         - We need to define where the list begins: head
-        - We need to define the next node we link to
-        - We might also want to define where the linked list ends: tail
+            - Our example grows in this direction (latest node to be added is head)
+        - We need to define the next node we link to: next
+        - We could also define where the linked list ends: tail
+            - We define the end of the list with NULL in the next pointer in this example
         - Linked list nodes can be allocated anywhere in memory while an array is limited by that it needs to be a contiguous block of memory.
     -
 
-    - References:
-        - https://www.youtube.com/watch?v=VOpjAHCee7c
+    - Followed and studied:
+        - Jacob Sorber: https://www.youtube.com/watch?v=VOpjAHCee7c
 */
 
 struct node {
@@ -27,7 +30,7 @@ struct node {
 };
 typedef struct node node_t;
 
-void printlist(node_t *head) {
+void printList(node_t *head) {
     node_t *temporary = head;
 
     while (temporary != NULL) {
@@ -37,33 +40,50 @@ void printlist(node_t *head) {
     printf("\n");
 }
 
+node_t * createNewNode(int x) {
+    node_t *result = malloc(sizeof(node_t));
+    result->x = x;
+    result->next = NULL;
+
+    return result;
+}
+
+// utility - not a part of the foundational linking
+node_t * findNode(node_t *head, int x) {
+    node_t *tmp = head;
+    while(tmp != NULL) {
+        if (tmp->x == x) {
+            return tmp;
+        }
+        tmp = tmp->next;
+    }
+    return NULL;
+}
+
+// utility - not a part of the foundational linking
+void insertAfterNode(node_t *nodeToInsertBefore, node_t *newNode) {
+    newNode->next = nodeToInsertBefore->next;
+    nodeToInsertBefore->next = newNode;
+}
 
 int main() {
+    node_t *head = NULL;  // the last node in the linked list should point to NULL so that we know when to stop
+    node_t *tmp;
 
-    node_t a, b, c;
-    node_t *head;
+    for (int i=0; i < 10; i++) {
+        tmp = createNewNode(i);
+        tmp->next = head;
+        head = tmp;
+    }
 
-    a.x = 10;
-    b.x = 12;
-    c.x = 14;
+    printList(head);
 
-    head = &a;
-    a.next = &b;
-    b.next = &c;
-    c.next = NULL;  // the last node in the linked list should point to NULL so that we know when to stop
-    printf("%d\n", head->x);  // 10
+    tmp = findNode(head, 5);
+    printf("Found node with value: %d\n", tmp->x);
 
-    printlist(head); // 10 - 12 - 14 -
+    insertAfterNode(tmp, createNewNode(29));
 
-    // insert a new node between b and c
-    node_t d;
-    d.x = 15;
-    d.next = &c;
-    b.next = &d;
-
-    //head = head->next;  // remove the first node by moving the head one node down/forward
-
-    printlist(head);  // 10 - 12 - 15 - 14 -
+    printList(head);
 
     return 0;
 }

@@ -10,8 +10,8 @@
         - Even though we iterate only length/2 Big O notation ignores constant factors. It doesn't matter whether you do $n$ or $n/2$ operations as the growth is still linear.
         - The operations in the swap itself are also constant as they always happen $n/2$ times.
 
-    - I followed and studied one of Jacob's example in this case:
-        - https://youtu.be/dcBcgPGIMpo?t=219
+    - Followed and studied:
+        - Jacob Sorber: https://youtu.be/dcBcgPGIMpo?t=219
 */
 
 void reverse0(char *str) {
