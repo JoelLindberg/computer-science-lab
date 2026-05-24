@@ -1,0 +1,24 @@
+[
+  {
+    "label": "Debug c-01-strings strings.c",
+    "adapter": "CodeLLDB",
+    "request": "launch",
+    "cwd": "${ZED_WORKTREE_ROOT}/c-01-strings",
+    "program": "${ZED_WORKTREE_ROOT}/c-01-strings/strings",
+    "build": {
+      "command": "make",
+      "args": ["-C", "c-01-strings", "strings"],
+    },
+  },
+  {
+    "label": "Debug c-01-strings reverse_string.c",
+    "adapter": "CodeLLDB",
+    "request": "launch",
+    "cwd": "${ZED_WORKTREE_ROOT}/c-01-strings",
+    "program": "${ZED_WORKTREE_ROOT}/c-01-strings/reverse_string",
+    "build": {
+      "command": "make",
+      "args": ["-C", "c-01-strings", "reverse_string"],
+    },
+  },
+]
